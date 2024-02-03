@@ -1,0 +1,54 @@
+---
+workflow:
+  common:
+    # This section declares placeholder variables that will
+    # be common across all workflow definition steps.
+    "%BATCH_ID%": R000989_NML05959
+    "%EMAIL_USER%": jsundaram@biosynth.com
+    "%VARIANT_TYPE%": SVN
+    "%ANALYSIS_TYPE%": ga_amp
+    "%JOB_SET_OUTDIR%": /tmp/workflow-1
+    # If TIMESTAMP is null, it will be automatically derived
+    # by the job_maker.py.
+    "%TIMESTAMP%": null
+    "%KEY%": "%SAMPLE_ID%"
+    template_file: /tmp/test-workflow-builder/templates/slurm.sbatch.sh.tt
+  definitions:
+    # This section declares the workflow steps.
+    # This will outline the order in which each job should be executed.
+    - "%JOB_NAME%": rsync-%BATCH_ID%-%SAMPLE_ID%
+      "%COMMAND%": rsync -r -e -i %RSYNC_SOURCE% %JOB_SET_OUTDIR%/%BATCH_ID%/%BATCH_ID%/
+      # stdout and stderr and automatically derived as
+      # stdout: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stdout
+      # stderr: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stderr
+    - "%JOB_NAME%": validate-samplesheet-%BATCH_ID%-%SAMPLE_ID%
+      "%COMMAND%": bash /tmp/validate_samplesheet.sh --samplesheet %JOB_SET_OUTDIR%/%BATCH_ID%/%BATCH_ID%/%SAMPLESHEET% --outdir %JOB_SET_OUTDIR%/%BATCH_ID%/validate-samplesheet-%BATCH_ID%-%SAMPLE_ID%/
+      # stdout and stderr and automatically derived as
+      # stdout: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stdout
+      # stderr: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stderr
+    - "%JOB_NAME%": run-go-kms-cli-%BATCH_ID%-%SAMPLE_ID%
+      "%COMMAND%": bash /tmp/go_kms_cli.sh --batch_id %BATCH_ID% --outdir %JOB_SET_OUTDIR%/%BATCH_ID%/run-go-kms-cli-%BATCH_ID%-%SAMPLE_ID%/
+      # stdout and stderr and automatically derived as
+      # stdout: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stdout
+      # stderr: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stderr
+    - "%JOB_NAME%": validate-go-kms-cli-%BATCH_ID%-%SAMPLE_ID%
+      "%COMMAND%": bash /tmp/validate_go_kms_jsonl.sh --infile %JOB_SET_OUTDIR%/%BATCH_ID%/run-go-kms-cli-%BATCH_ID%-%SAMPLE_ID%/kms.jsonl
+      # stdout and stderr and automatically derived as
+      # stdout: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stdout
+      # stderr: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stderr
+    # - "%JOB_NAME%": run-extender-%BATCH_ID%-%SAMPLE_ID%
+    #   "%COMMAND%": /tmp/run_extender.sh --samplesheet %RSYNC_TARGET%/%SAMPLESHEET% --jsonl-file %JOB_SET_OUTDIR%/%BATCH_ID%/run-go-kms-cli-%BATCH_ID%-%SAMPLE_ID%/kms.jsonl --outdir %JOB_SET_OUTDIR%/%BATCH_ID%/run-extender-%BATCH_ID%-%SAMPLE_ID%/ --variant-type %VARIANT_TYPE% --analysis_type %ANALYSIS_TYPE%
+    #   # stdout and stderr and automatically derived as
+    #   # stdout: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stdout
+    #   # stderr: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stderr
+    #   - "%JOB_NAME%": validate-pvave-json-file-%BATCH_ID%-%SAMPLE_ID%
+    #   "%COMMAND%": /tmp/validate_pvave_json.sh --infile %JOB_SET_OUTDIR%/%BATCH_ID%/run-extender-%BATCH_ID%-%SAMPLE_ID%/%BATCH_ID%-%SAMPLE_ID%.json
+      # stdout and stderr and automatically derived as
+      # stdout: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stdout
+      # stderr: %JOB_SET_OUTDIR%/%BATCH_ID%/[job_name]/stderr
+job_sets:
+  - "%SAMPLE_ID%": sample-1
+  - "%SAMPLE_ID%": sample-2
+  - "%SAMPLE_ID%": sample-3
+  - "%SAMPLE_ID%": sample-4
+  - "%SAMPLE_ID%": sample-5
