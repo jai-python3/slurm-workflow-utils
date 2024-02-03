@@ -6,10 +6,6 @@ Functions:
 - check_indir_status(indir=None): Check the status of a directory, providing information on its existence and contents.
 - check_infile_status(infile, extension=None): Check the status of a file, including its existence and optionally validate its extension.
 - get_file_creation_date(file_path): Retrieve the creation date of a file specified by its path.
-- get_file_list(indir=None, extension=None): Get the list of files in the specified directory.
-- get_file_size(file_path): Get the size of a file specified by its path.
-- get_line_count(file_path): Get the number of lines in a file specified by its path.
-- is_binary_file(file_path, block_size=1024): Determine whether a file is binary or text.
 
 Use these functions to enhance file handling and data validation in your Python projects.
 """
@@ -19,10 +15,11 @@ import hashlib
 import logging
 import os
 import platform
-import sys
+import shutil
 import string
+import sys
 
-from typing import List, Optional
+from typing import Optional
 from rich.console import Console
 from datetime import datetime
 
@@ -187,37 +184,9 @@ def is_binary_file(file_path: str, block_size: int = 1024) -> bool:
         print(f"An error occurred: {e}")
         return None
 
-
-def get_file_list(indir: str = None, extension: str = None) -> List[str]:
-    """Get the list of files in the specified directory.
-
-    Args:
-        indir (str): the directory to search for files
-        extension (str): the file extension to filter on
-
-    Returns:
-        file_list (List[str]): the list of files found in the directory
-    """
-    if extension is None:
-        logging.info(f"Going to search for files in directory '{indir}'")
-    else:
-        logging.info(f"Going to search for files with extension '{extension}' in directory '{indir}'")
-
-    file_list = []
-
-    for dirpath, dirnames, filenames in os.walk(indir):
-
-        if 'venv' in dirpath:
-            logging.info(f"Going to ignore files in directory '{dirpath}'")
-            continue
-        for name in filenames:
-            filepath = os.path.normpath(os.path.join(dirpath, name))
-            if os.path.isfile(filepath):
-                if extension is not None:
-                    if filepath.endswith(f'.{extension}'):
-                        file_list.append(filepath)
-                else:
-                    file_list.append(filepath)
-
-    return file_list
-
+def backup_file(infile: str) -> str:
+    timestamp = datetime.today().strftime("%Y-%m-%d-%H%M%S")
+    bakfile = f"{infile}_{timestamp}.bak"
+    shutil.copy(infile, bakfile)
+    logging.info(f"Copied '{infile}' to '{bakfile}'")
+    return bakfile

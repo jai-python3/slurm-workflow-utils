@@ -10,7 +10,13 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = [
+    'Click>=7.0',
+    "PyYAML",
+    "Rich",
+    "simple-template-toolkit",
+    "yamlordereddictloader",
+]
 
 test_requirements = [ ]
 
@@ -30,7 +36,7 @@ setup(
     description="Collection of Python scripts to facilitate creation and dispatching of computational jobs",
     entry_points={
         'console_scripts': [
-            'job_helper_utils=job_helper_utils.cli:main',
+            'workflow-builder=job_helper_utils.workflow_builder:main',
         ],
     },
     install_requires=requirements,
@@ -41,7 +47,7 @@ setup(
     packages=find_packages(include=['job_helper_utils', 'job_helper_utils.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/jai-python3/job_helper_utils',
+    url='https://github.com/jai-python3/job-helper-utils',
     version='0.1.0',
     zip_safe=False,
 )
