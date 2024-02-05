@@ -37,6 +37,7 @@ setup(
     entry_points={
         'console_scripts': [
             'workflow-builder=job_helper_utils.workflow_builder:main',
+            'workflow-launcher=job_helper_utils.workflow_launcher:main',
         ],
     },
     install_requires=requirements,
