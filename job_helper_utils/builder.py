@@ -67,7 +67,7 @@ class Builder:
             logging.info(f"%TIMESTAMP% was not specified and therefore was set to '{constants.DEFAULT_TIMESTAMP}'")
 
         # Process each job set.
-        for job_set in job_sets_lookup:
+        for subflow_ctr, job_set in enumerate(job_sets_lookup, start=1):
             logging.info(f"job_set: {job_set}")
 
             if key_placeholder not in job_set:
@@ -78,6 +78,8 @@ class Builder:
             job_lookup.update(common_lookup)
 
             previous_job_name = None
+
+            self._create_subflow_directory(f"{common_lookup['%JOB_SET_OUTDIR%']}/{common_lookup['%TIMESTAMP%']}/{key}", subflow_ctr)
 
             # Process each job definition.
             for job_ctr, job_definition in enumerate(definitions_lookup, start=1):
@@ -225,6 +227,47 @@ class Builder:
         if not os.path.exists(symlink):
             os.symlink(job_basedir, symlink)
             # E.g.: step-1 -> rsync-R000989_NML05959-sample-5
+            logging.info(f"Created symlink '{symlink}'")
+
+        # Return to the original directory.
+        os.chdir(current_dir)
+
+
+    def _create_subflow_directory(self, subflow_dir: str, subflow_ctr: int) -> None:
+        """Create the subflow directory and symlink to the subflow directory.
+
+        Args:
+            subflow_dir (str): The subflow directory.
+            subflow_ctr (int): The subflow counter.
+        """
+
+        # E.g.: subflow_dir:
+        # /tmp/workflow-1/2024-02-05-092539/sample-5
+        if not os.path.exists(subflow_dir):
+            pathlib.Path(subflow_dir).mkdir(parents=True, exist_ok=True)
+            logging.info(f"Created subflow directory '{subflow_dir}'")
+
+        current_dir = os.getcwd()
+
+        # Create a step symlink to the subflow directory.
+        parent_dir = os.path.dirname(subflow_dir)
+        # E.g.: parent_dir:
+        # /tmp/workflow-1/2024-02-05-092539
+
+        os.chdir(parent_dir)
+
+        subflow_basedir = os.path.basename(subflow_dir)
+        # E.g.: subflow_basedir:
+        # sample-5
+
+        symlink = f"subflow-{subflow_ctr}"
+        # E.g.: symlink:
+        # subflow-5
+
+        # Create symlink to the job directory.
+        if not os.path.exists(symlink):
+            os.symlink(subflow_basedir, symlink)
+            # E.g.: subflow-5 -> sample-5
             logging.info(f"Created symlink '{symlink}'")
 
         # Return to the original directory.
