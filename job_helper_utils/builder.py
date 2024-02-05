@@ -4,6 +4,7 @@ import pathlib
 import sys
 import yaml
 
+from datetime import datetime
 from yamlordereddictloader import SafeLoader
 from pathlib import Path
 from rich.console import Console
@@ -37,6 +38,7 @@ class Builder:
         logging.info(f"Instantiated Builder in file '{os.path.abspath(__file__)}'")
 
     def build(self) -> None:
+
         if "job_sets" not in self.control_lookup:
             raise ValueError(f"'job_sets' was not found in control file '{self.control_file}'")
         job_sets_lookup = self.control_lookup["job_sets"]
@@ -65,6 +67,8 @@ class Builder:
         if common_lookup["%TIMESTAMP%"] is None or common_lookup["%TIMESTAMP%"] == "":
             common_lookup["%TIMESTAMP%"] = constants.DEFAULT_TIMESTAMP
             logging.info(f"%TIMESTAMP% was not specified and therefore was set to '{constants.DEFAULT_TIMESTAMP}'")
+
+        sbatch_script_list = []
 
         # Process each job set.
         for subflow_ctr, job_set in enumerate(job_sets_lookup, start=1):
@@ -153,8 +157,37 @@ class Builder:
                     outfile=outfile,
                 )
 
+                sbatch_script_list.append(outfile)
+
                 previous_job_name = job_lookup["%JOB_NAME%"]
                 logging.info(f"Set previous_job_name to '{previous_job_name}'")
+
+        self._write_sbatch_script_list_to_file(
+            sbatch_script_list,
+            f"{common_lookup['%JOB_SET_OUTDIR%']}/{common_lookup['%TIMESTAMP%']}"
+        )
+
+    def _write_sbatch_script_list_to_file(self, sbatch_script_list: List[str], outdir: str) -> None:
+        """Write the sbatch script list to a file.
+
+        Args:
+            sbatch_script_list (List[str]): The sbatch script list.
+            outdir (str): The output directory.
+        """
+        outfile = os.path.join(outdir, "sbatch_scripts.txt")
+        with open(outfile, "w") as of:
+            of.write(f"## method-created: {os.path.abspath(__file__)}\n")
+            of.write(f"## date-created: {str(datetime.today().strftime('%Y-%m-%d-%H%M%S'))}\n")
+            of.write(f"## created-by: {os.environ.get('USER')}\n")
+            of.write(f"## control-file: {self.control_file}\n")
+            of.write(f"## logfile: {self.logfile}\n")
+
+            for sbatch_script in sbatch_script_list:
+                of.write(f"{sbatch_script}\n")
+
+        if self.verbose:
+            console.log(f"Wrote sbatch script list to file '{outfile}'")
+        logging.info(f"Wrote sbatch script list to file '{outfile}'")
 
     def _perform_inplace_substitutions(self, lookup: Dict[str, Any]) -> None:
         """Perform the placeholder substitutions among the values in the job definition lookup.
