@@ -3,7 +3,6 @@
 #SBATCH -N 1
 #SBATCH --partition=synth-bio
 #SBATCH --qos=panels
-#SBATCH --dependency=%DEPENDENCY%
 #SBATCH --output=%STDOUT%
 #SBATCH --error=%STDERR%
 #SBATCH --nodelist=compute-0-0
@@ -12,5 +11,6 @@
 #SBATCH --propagate=NONE
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=%EMAIL_USER%
+%DEPENDENCY%
 
 %COMMAND%
