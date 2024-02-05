@@ -1,12 +1,14 @@
 import logging
+import json
 import os
 
+from datetime import datetime
 from pathlib import Path
 from rich.console import Console
 from typing import List, Optional
 
 from . import constants
-from .file_utils import check_infile_status
+from .file_utils import check_infile_status, backup_file
 
 
 error_console = Console(stderr=True, style="bold red")
@@ -66,6 +68,31 @@ class Launcher:
             if self.verbose:
                 console.log(f"Will launch sbatch script {ctr}: '{sbatch_script}'")
             logging.info(f"Will launch sbatch script {ctr}: '{sbatch_script}'")
+
+            launch_outfile = os.path.join(
+                os.path.dirname(sbatch_script),
+                "workflow_launcher.json"
+            )
+
+            if os.path.exists(launch_outfile):
+                backup_file(launch_outfile)
+
+            dictionary = {
+                "method-created": os.path.abspath(__file__),
+                "date-launched":str(datetime.today().strftime('%Y-%m-%d-%H%M%S')),
+                "sbatch-script": os.path.realpath(sbatch_script),
+                "created-by": os.environ.get('USER'),
+                "logfile": self.logfile
+            }
+
+            with open(launch_outfile, 'w') as write_file:
+                json.dump(dictionary, write_file, indent=4, sort_keys=True)
+
+            if self.verbose:
+                console.log(f"Wrote launch metadata file '{launch_outfile}'")
+
+            logging.info(f"Wrote launch metadata file '{launch_outfile}'")
+
 
             # os.system(f"sbatch {sbatch_script}")
 
