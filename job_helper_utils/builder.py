@@ -119,6 +119,8 @@ class Builder:
                     f"{job_lookup['%JOB_NAME%']}.yaml"
                 )
 
+                self._create_job_directory(job_file, job_ctr)
+
                 logging.info(f"{job_file=}")
                 logging.info(f"{job_lookup=}")
                 # sys.exit(1)
@@ -184,4 +186,47 @@ class Builder:
             yaml.dump(dict(job_lookup), file)
 
 
+    def _create_job_directory(self, job_file: str, job_ctr: int) -> None:
+        """Create the job directory and symlink to the job directory.
+
+        Args:
+            job_file (str): The job file.
+            job_ctr (int): The job counter.
+        """
+
+        # E.g.: job_file:
+        # /tmp/workflow-1/2024-02-05-092539/sample-5/rsync-R000989_NML05959-sample-5/rsync-R000989_NML05959-sample-5.sbatch.sh
+        job_dir = os.path.dirname(job_file)
+
+        # E.g.: job_dir:
+        # /tmp/workflow-1/2024-02-05-092539/sample-5/rsync-R000989_NML05959-sample-5
+        if not os.path.exists(job_dir):
+            pathlib.Path(job_dir).mkdir(parents=True, exist_ok=True)
+            logging.info(f"Created directory '{job_dir}'")
+
+        current_dir = os.getcwd()
+
+        # Create a step symlink to the job directory.
+        parent_dir = os.path.dirname(job_dir)
+        # E.g.: parent_dir:
+        # /tmp/workflow-1/2024-02-05-092539/sample-5
+
+        os.chdir(parent_dir)
+
+        job_basedir = os.path.basename(job_dir)
+        # E.g.: job_basedir:
+        # rsync-R000989_NML05959-sample-5
+
+        symlink = f"step-{job_ctr}"
+        # E.g.: symlink:
+        # step-1
+
+        # Create symlink to the job directory.
+        if not os.path.exists(symlink):
+            os.symlink(job_basedir, symlink)
+            # E.g.: step-1 -> rsync-R000989_NML05959-sample-5
+            logging.info(f"Created symlink '{symlink}'")
+
+        # Return to the original directory.
+        os.chdir(current_dir)
 
