@@ -79,7 +79,7 @@ class Builder:
 
             previous_job_name = None
 
-            self._create_subflow_directory(f"{common_lookup['%JOB_SET_OUTDIR%']}/{common_lookup['%TIMESTAMP%']}/{key}", subflow_ctr)
+            subflow_symlink_name = self._create_subflow_directory(f"{common_lookup['%JOB_SET_OUTDIR%']}/{common_lookup['%TIMESTAMP%']}/{key}", subflow_ctr)
 
             # Process each job definition.
             for job_ctr, job_definition in enumerate(definitions_lookup, start=1):
@@ -121,7 +121,7 @@ class Builder:
                     f"{job_lookup['%JOB_NAME%']}.yaml"
                 )
 
-                self._create_job_directory(job_file, job_ctr)
+                job_symlink_name = self._create_job_directory(job_file, job_ctr)
 
                 logging.info(f"{job_file=}")
                 logging.info(f"{job_lookup=}")
@@ -188,12 +188,14 @@ class Builder:
             yaml.dump(dict(job_lookup), file)
 
 
-    def _create_job_directory(self, job_file: str, job_ctr: int) -> None:
+    def _create_job_directory(self, job_file: str, job_ctr: int) -> str:
         """Create the job directory and symlink to the job directory.
 
         Args:
             job_file (str): The job file.
             job_ctr (int): The job counter.
+        Returns:
+            str: The symlink to the job directory.
         """
 
         # E.g.: job_file:
@@ -232,13 +234,17 @@ class Builder:
         # Return to the original directory.
         os.chdir(current_dir)
 
+        return symlink
 
-    def _create_subflow_directory(self, subflow_dir: str, subflow_ctr: int) -> None:
+
+    def _create_subflow_directory(self, subflow_dir: str, subflow_ctr: int) -> str:
         """Create the subflow directory and symlink to the subflow directory.
 
         Args:
             subflow_dir (str): The subflow directory.
             subflow_ctr (int): The subflow counter.
+        Returns:
+            str: The symlink to the subflow directory.
         """
 
         # E.g.: subflow_dir:
@@ -273,3 +279,4 @@ class Builder:
         # Return to the original directory.
         os.chdir(current_dir)
 
+        return symlink
