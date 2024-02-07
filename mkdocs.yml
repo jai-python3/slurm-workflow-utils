@@ -33,7 +33,7 @@ plugins:
       # python:
       handlers:
         python:
-          paths: [slurm-workflow-utils]
+          paths: [slurm_workflow_utils]
         # import_root: jira_python_utils
         # import_root: jira-python-utils
 nav:
@@ -41,6 +41,14 @@ nav:
   - Installation: INSTALL.md
   - Code Reference:
   # INSERT CODE REFERENCE SECTION
+    - Builder: builder.md
+    - Console Helper: console_helper.md
+    - Constants: constants.md
+    - File Utils: file_utils.md
+    - Launcher: launcher.md
+    - System Caller: system_caller.md
+    - Workflow Builder: workflow_builder.md
+    - Workflow Launcher: workflow_launcher.md
 
 
 markdown_extensions:
