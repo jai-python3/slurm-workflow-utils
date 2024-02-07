@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use Job Helper Utils in a project::
+To use Slurm Workflow Utils in a project::
 
-    import job_helper_utils
+    import slurm-workflow-utils

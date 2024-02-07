@@ -1,1 +1,1 @@
-"""Unit test package for job_helper_utils."""
+"""Unit test package for slurm_workflow_utils."""

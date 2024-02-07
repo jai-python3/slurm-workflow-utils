@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=job_helper_utils
+set SPHINXPROJ=slurm-workflow-utils
 
 if "%1" == "" goto help
 

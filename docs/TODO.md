@@ -1,0 +1,3 @@
+- Implement unit tests (pytest)
+- Add Use Case diagram
+- Add Class diagram

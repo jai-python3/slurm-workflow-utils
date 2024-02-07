@@ -1,4 +1,0 @@
-- refactor profiling module
-- unit tests (pytest)
-- use case diagram
-- class diagram

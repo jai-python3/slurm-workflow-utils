@@ -1,4 +1,4 @@
-Welcome to Job Helper Utils's documentation!
+Welcome to Slurm Workflow Utils's documentation!
 ======================================
 
 .. toctree::

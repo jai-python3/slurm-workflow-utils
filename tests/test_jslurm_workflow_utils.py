@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 
-"""Tests for `job_helper_utils` package."""
+"""Tests for `slurm_workflow_utils` package."""
 
 
 import unittest
 from click.testing import CliRunner
 
-from job_helper_utils import job_helper_utils
-from job_helper_utils import cli
+from slurm_workflow_utils import slurm_workflow_utils
+from slurm_workflow_utils import cli
 
 
-class TestJob_helper_utils(unittest.TestCase):
-    """Tests for `job_helper_utils` package."""
+class Testslurm_workflow_utils(unittest.TestCase):
+    """Tests for `slurm_workflow_utils` package."""
 
     def setUp(self):
         """Set up test fixtures, if any."""
@@ -27,7 +27,7 @@ class TestJob_helper_utils(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(cli.main)
         assert result.exit_code == 0
-        assert 'job_helper_utils.cli.main' in result.output
+        assert 'slurm_workflow_utils.cli.main' in result.output
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output

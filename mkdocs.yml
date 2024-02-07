@@ -1,4 +1,4 @@
-site_name: Job Helper Utils
+site_name: Slurm Workflow Utils
 # dev_addr: 127.0.0.1:8081
 theme:
   name: material
@@ -33,7 +33,7 @@ plugins:
       # python:
       handlers:
         python:
-          paths: [job-helper-utils]
+          paths: [slurm-workflow-utils]
         # import_root: jira_python_utils
         # import_root: jira-python-utils
 nav:

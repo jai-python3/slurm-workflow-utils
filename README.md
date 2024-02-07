@@ -1,7 +1,7 @@
-# job-helper-utils
-Collection of Python scripts to facilitate creation and dispatching of computational jobs
+# slurm-workflow-utils
+Collection of Python scripts to facilitate creation and dispatching of computational jobs via SLURM sbatch scripts.
 
-- [job-helper-utils](#job-helper-utils)
+- [slurm-workflow-utils](#slurm-workflow-utils)
   - [Improvements](#improvements)
   - [Use Cases](#use-cases)
   - [Class Diagrams](#class-diagrams)
@@ -35,8 +35,8 @@ Please see the [INSTALL](docs/INSTALL.md) guide for instructions.
 
 To following exported console scripts are available:
 
-- job-maker
-- job-launcher
+- workflow-builder
+- workflow-launcher
 
 ## Contributing
 

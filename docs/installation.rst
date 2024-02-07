@@ -8,13 +8,13 @@ Installation
 Stable release
 --------------
 
-To install Job Helper Utils, run this command in your terminal:
+To install Slurm Workflow Utils, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install job_helper_utils
+    $ pip install slurm-workflow-utils
 
-This is the preferred method to install Job Helper Utils, as it will always install the most recent stable release.
+This is the preferred method to install Slurm Workflow Utils, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -26,19 +26,19 @@ you through the process.
 From sources
 ------------
 
-The sources for Job Helper Utils can be downloaded from the `Github repo`_.
+The sources for Slurm Workflow Utils can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/jai-python3/job_helper_utils
+    $ git clone git://github.com/jai-python3/slurm-workflow-utils
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/jai-python3/job_helper_utils/tarball/master
+    $ curl -OJL https://github.com/jai-python3/slurm-workflow-utils/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/jai-python3/job_helper_utils
-.. _tarball: https://github.com/jai-python3/job_helper_utils/tarball/master
+.. _Github repo: https://github.com/jai-python3/slurm-workflow-utils
+.. _tarball: https://github.com/jai-python3/slurm-workflow-utils/tarball/master

@@ -3,7 +3,7 @@ import os
 
 from datetime import datetime
 
-DEFAULT_PROJECT = "job-helper-utils"
+DEFAULT_PROJECT = "slurm-workflow-utils"
 
 DEFAULT_TIMESTAMP = str(datetime.today().strftime("%Y-%m-%d-%H%M%S"))
 

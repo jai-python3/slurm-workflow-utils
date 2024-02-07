@@ -1,12 +1,16 @@
-# Welcome to TBD
+# Welcome to Slurm Workflow Utils
 
-TBD
+Collection of Python scripts to facilitate creation and dispatching of computational jobs via SLURM sbatch scripts.
 
 ## Commands
 
-The following exported scripts are available:
+To following exported console scripts are available:
+
+- workflow-builder
+- workflow-launcher
+
 
 ## References
 
-[GitHub](https://github.com/jai-python3/TBD)
-[PYPI](https://pypi.org/project/TBD/)
+* [GitHub](https://github.com/jai-python3/slurm-workflow-utils)
+* [PYPI](https://pypi.org/project/slurm-workflow-utils/)

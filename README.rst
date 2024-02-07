@@ -1,9 +1,8 @@
 ================
-Job Helper Utils
+Slurm Workflow Utils
 ================
 
-Collection of Python scripts to facilitate creation and dispatching of computational jobs.
-
+Collection of Python scripts to facilitate creation and dispatching of computational jobs via SLURM sbatch scripts.
 
 
 Features
@@ -11,8 +10,8 @@ Features
 
 To following exported console scripts are available:
 
-- job-maker
-- job-launcher
+- workflow-builder
+- workflow-launcher
 
 
 Credits

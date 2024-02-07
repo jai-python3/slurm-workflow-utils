@@ -1,4 +1,4 @@
-"""Top-level package for Job Helper Utils."""
+"""Top-level package for Slurm Workflow Utils."""
 
 __author__ = """Jaideep Sundaram"""
 __email__ = 'jai.python3@gmail.com'

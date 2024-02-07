@@ -1,15 +1,24 @@
 # INSTALL
 
-### Clone project
+## Install from PYPI
+
+Install the package in your Python virtual environment
+
+```shell
+source venv/bin/activate
+pip install slurm-workflow-utils
+```
+
+## Clone project
 
 You can `git clone` this project.
 
 ```shell
-git clone https://github.com/jai-python3/tbd.git
-cd tbd
+git clone https://github.com/jai-python3/slurm-workflow-utils.git
+cd slurm-workflow-utils
 ```
 
-### Local pip install
+## Local pip install
 
 You can optionally establish a Python virtual environment.
 Then you can run the `setup.py` script to build to project and then run `pip install`<br>
@@ -22,22 +31,22 @@ python setup.py sdist
 pip install .
 ```
 
-### Uninstall
+## Uninstall
 
 You can uninstall like this:
 
 ```bash
 source venv/bin/activate
-pip uninstall tbd
+pip uninstall slurm-workflow-utils
 make clean
 ```
 
-### Developers
+## Developers
 
 If you modify the code in this package in your local virtual environment:
 
 ```shell
-pip uninstall tbd
+pip uninstall slurm-workflow-utils
 make clean
 python setup.py sdist
 pip install .
@@ -75,10 +84,3 @@ python setup.py sdist bdist_wheel
 twine upload dist/*
 ```
 
-### Install from PYPI
-
-Now you can install your package in your Python virtual environment
-
-```shell
-pip install tbd
-```
