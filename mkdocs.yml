@@ -1,5 +1,4 @@
 site_name: Slurm Workflow Utils
-# dev_addr: 127.0.0.1:8081
 theme:
   name: material
   # features:
@@ -30,12 +29,9 @@ plugins:
   - search
   - mkdocstrings:
       default_handler: python
-      # python:
       handlers:
         python:
           paths: [slurm_workflow_utils]
-        # import_root: jira_python_utils
-        # import_root: jira-python-utils
 nav:
   - Home: index.md
   - Installation: INSTALL.md
