@@ -1,6 +1,6 @@
-================
+=====================
 Slurm Workflow Utils
-================
+=====================
 
 Collection of Python scripts to facilitate creation and dispatching of computational jobs via SLURM sbatch scripts.
 
