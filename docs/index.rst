@@ -1,5 +1,5 @@
 Welcome to Slurm Workflow Utils's documentation!
-======================================
+================================================
 
 .. toctree::
    :maxdepth: 2
