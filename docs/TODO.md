@@ -1,3 +1,4 @@
+- Add sample files and update documentation
 - Implement unit tests (pytest)
 - Add Use Case diagram
 - Add Class diagram

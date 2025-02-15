@@ -1,10 +1,9 @@
 # slurm-workflow-utils
+
 Collection of Python scripts to facilitate creation and dispatching of computational jobs via SLURM sbatch scripts.
 
 - [slurm-workflow-utils](#slurm-workflow-utils)
   - [Improvements](#improvements)
-  - [Use Cases](#use-cases)
-  - [Class Diagrams](#class-diagrams)
   - [Installation](#installation)
   - [Exported scripts](#exported-scripts)
   - [Contributing](#contributing)
@@ -17,15 +16,6 @@ Collection of Python scripts to facilitate creation and dispatching of computati
 ## Improvements
 
 Please see the [TODO](docs/TODO.md) for a list of upcoming improvements.
-
-
-## Use Cases
-
-<img src="use_cases.png" width="400" height="400" alt="Use Cases diagram">
-
-## Class Diagrams
-
-![class diagrams](class_diagrams.png)
 
 ## Installation
 
